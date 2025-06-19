@@ -1,0 +1,104 @@
+
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>أنمي جالاكسي</title>
+  <link rel="manifest" href="manifest.json">
+  <link rel="icon" href="icon.png" />
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #0d0d0d;
+      color: #fff;
+      margin: 0;
+      padding: 20px;
+    }
+    h1 {
+      text-align: center;
+      color: #00aaff;
+      font-size: 2.5em;
+    }
+    select {
+      background: #1a1a1a;
+      color: #00aaff;
+      border: 1px solid #00aaff;
+      padding: 10px;
+      font-size: 16px;
+      margin-bottom: 20px;
+      border-radius: 5px;
+    }
+    .anime-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 15px;
+    }
+    .anime-card {
+      background: #1e1e1e;
+      padding: 15px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 170, 255, 0.5);
+      transition: transform 0.2s;
+    }
+    .anime-card:hover {
+      transform: scale(1.05);
+    }
+    .anime-card h3 {
+      margin: 0 0 10px;
+      color: #00ccff;
+    }
+  </style>
+</head>
+<body>
+  <h1>🌌 أنمي جالاكسي</h1>
+  <select id="filter">
+    <option value="الكل">كل الأنميات</option>
+    <option value="أكشن">أكشن</option>
+    <option value="كوميدي">كوميدي</option>
+    <option value="دراما">دراما</option>
+    <option value="خيال">خيال</option>
+  </select>
+
+  <div class="anime-list" id="animeList"></div>
+
+  <script>
+    const animes = [
+      { title: "ناروتو", genre: "أكشن" },
+      { title: "كونان", genre: "دراما" },
+      { title: "ون بيس", genre: "أكشن" },
+      { title: "غينتاما", genre: "كوميدي" },
+      { title: "ديث نوت", genre: "خيال" },
+      { title: "فيري تيل", genre: "أكشن" },
+    ];
+
+    const listEl = document.getElementById("animeList");
+    const filterEl = document.getElementById("filter");
+
+    function renderAnimes(genre = "الكل") {
+      listEl.innerHTML = "";
+      const filtered = genre === "الكل" ? animes : animes.filter(a => a.genre === genre);
+      filtered.forEach(anime => {
+        const card = document.createElement("div");
+        card.className = "anime-card";
+        card.innerHTML = `<h3>${anime.title}</h3><p>النوع: ${anime.genre}</p>`;
+        listEl.appendChild(card);
+      });
+    }
+
+    filterEl.addEventListener("change", () => {
+      renderAnimes(filterEl.value);
+    });
+
+    renderAnimes();
+  </script>
+
+  <script>
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('service-worker.js')
+        .then(reg => console.log("Service Worker Registered"))
+        .catch(err => console.error("Service Worker Failed", err));
+    }
+  </script>
+</body>
+</html>

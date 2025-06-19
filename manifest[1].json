@@ -1,0 +1,16 @@
+
+{
+  "name": "أنمي جالاكسي",
+  "short_name": "جالاكسي",
+  "start_url": "index.html",
+  "display": "standalone",
+  "background_color": "#0d0d0d",
+  "theme_color": "#00aaff",
+  "icons": [
+    {
+      "src": "icon.png",
+      "type": "image/png",
+      "sizes": "192x192"
+    }
+  ]
+}
